@@ -19,7 +19,11 @@ module Jsoner
     end
 
     def build_header
-      @table_rows[0].search('td').map(&:content)
+      if table.search('th').empty?
+        0...(@table_rows[0].search('td').count).to_a.collect{|i| "col#{i}"}
+      else
+        @table_rows[0].search('td').map(&:content)
+      end
     end
 
     def build_body
