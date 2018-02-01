@@ -11,6 +11,7 @@ module Jsoner
   class TableFactory
 
     def initialize doc
+      @doc = doc
       @table_rows = remove_housing(doc).search('tr')
     end
 
@@ -19,8 +20,9 @@ module Jsoner
     end
 
     def build_header
+      table = @doc.search('table').first
       if table.search('th').empty?
-        0...(@table_rows[0].search('td').count).to_a.collect{|i| "col#{i}"}
+        (0...(@table_rows[0].search('td').count)).to_a.collect{|i| "col#{i}"}
       else
         @table_rows[0].search('td').map(&:content)
       end
