@@ -19,7 +19,7 @@ module Jsoner
     end
 
     def build_header
-      @table_rows[0].search('th').map(&:content)
+      @table_rows[0].search('td').map(&:content)
     end
 
     def build_body
@@ -34,7 +34,7 @@ module Jsoner
     # a full table should include +th+, +td+, +tr+ elements
     def self.check doc
       table = doc.search('table').first
-      unless table.search('tr').empty? || table.search('td').empty? || table.search('th').empty?
+      unless table.search('tr').empty? || table.search('td').empty? || table.search('td').empty?
         TableFactory.new doc
       else
 	raise Jsoner::NotFullTable 
